@@ -24,6 +24,7 @@ public class ZQCollectionViewFlowLayout: UICollectionViewFlowLayout {
     public var colNum:Int = 0
     
     /// 内容缩进, 默认 .zero
+    /// 注: 如果设置了该属性,则 minimumLineSpacing 和 minimumInteritemSpacing设置无效,因为在布局计算时,会根据 rowNum colNum itemSize contentInsets 自动算出item之间的间隔
     public var contentInsets:UIEdgeInsets = .zero
     
     /// 布局方向, 默认 .horizontal
