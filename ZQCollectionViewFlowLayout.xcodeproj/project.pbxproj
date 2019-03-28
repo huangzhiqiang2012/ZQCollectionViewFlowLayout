@@ -15,8 +15,11 @@
 		95021579224B24E500B58895 /* ZQCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 95021577224B24E500B58895 /* ZQCollectionViewFlowLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9502157C224B24E500B58895 /* ZQCollectionViewFlowLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95021575224B24E500B58895 /* ZQCollectionViewFlowLayout.framework */; };
 		9502157D224B24E500B58895 /* ZQCollectionViewFlowLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 95021575224B24E500B58895 /* ZQCollectionViewFlowLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		95021583224B253E00B58895 /* ZQCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95021582224B253E00B58895 /* ZQCollectionViewFlowLayout.swift */; };
+		95021583224B253E00B58895 /* ZQCollectionViewFlowDirectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95021582224B253E00B58895 /* ZQCollectionViewFlowDirectionLayout.swift */; };
 		95021585224B4D5E00B58895 /* ZQCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95021584224B4D5E00B58895 /* ZQCollectionViewCell.swift */; };
+		95021587224B7DF300B58895 /* ZQCollectionViewFlowDirectionLayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95021586224B7DF300B58895 /* ZQCollectionViewFlowDirectionLayoutController.swift */; };
+		95021589224B813200B58895 /* ZQCollectionViewFlowZoomLayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95021588224B813200B58895 /* ZQCollectionViewFlowZoomLayoutController.swift */; };
+		9502158B224B819300B58895 /* ZQCollectionViewFlowZoomLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9502158A224B819300B58895 /* ZQCollectionViewFlowZoomLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +57,11 @@
 		95021575224B24E500B58895 /* ZQCollectionViewFlowLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZQCollectionViewFlowLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95021577224B24E500B58895 /* ZQCollectionViewFlowLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZQCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		95021578224B24E500B58895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95021582224B253E00B58895 /* ZQCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		95021582224B253E00B58895 /* ZQCollectionViewFlowDirectionLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewFlowDirectionLayout.swift; sourceTree = "<group>"; };
 		95021584224B4D5E00B58895 /* ZQCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewCell.swift; sourceTree = "<group>"; };
+		95021586224B7DF300B58895 /* ZQCollectionViewFlowDirectionLayoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewFlowDirectionLayoutController.swift; sourceTree = "<group>"; };
+		95021588224B813200B58895 /* ZQCollectionViewFlowZoomLayoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewFlowZoomLayoutController.swift; sourceTree = "<group>"; };
+		9502158A224B819300B58895 /* ZQCollectionViewFlowZoomLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewFlowZoomLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,8 @@
 			children = (
 				9502155E224B242900B58895 /* ZQAppDelegate.swift */,
 				95021560224B242900B58895 /* ZQRootViewController.swift */,
+				95021586224B7DF300B58895 /* ZQCollectionViewFlowDirectionLayoutController.swift */,
+				95021588224B813200B58895 /* ZQCollectionViewFlowZoomLayoutController.swift */,
 				95021584224B4D5E00B58895 /* ZQCollectionViewCell.swift */,
 				95021562224B242900B58895 /* Main.storyboard */,
 				95021565224B242A00B58895 /* Assets.xcassets */,
@@ -114,7 +122,8 @@
 			children = (
 				95021577224B24E500B58895 /* ZQCollectionViewFlowLayout.h */,
 				95021578224B24E500B58895 /* Info.plist */,
-				95021582224B253E00B58895 /* ZQCollectionViewFlowLayout.swift */,
+				95021582224B253E00B58895 /* ZQCollectionViewFlowDirectionLayout.swift */,
+				9502158A224B819300B58895 /* ZQCollectionViewFlowZoomLayout.swift */,
 			);
 			path = ZQCollectionViewFlowLayout;
 			sourceTree = "<group>";
@@ -233,9 +242,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95021589224B813200B58895 /* ZQCollectionViewFlowZoomLayoutController.swift in Sources */,
 				95021561224B242900B58895 /* ZQRootViewController.swift in Sources */,
 				9502155F224B242900B58895 /* ZQAppDelegate.swift in Sources */,
 				95021585224B4D5E00B58895 /* ZQCollectionViewCell.swift in Sources */,
+				95021587224B7DF300B58895 /* ZQCollectionViewFlowDirectionLayoutController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +254,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95021583224B253E00B58895 /* ZQCollectionViewFlowLayout.swift in Sources */,
+				9502158B224B819300B58895 /* ZQCollectionViewFlowZoomLayout.swift in Sources */,
+				95021583224B253E00B58895 /* ZQCollectionViewFlowDirectionLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

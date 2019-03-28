@@ -11,76 +11,56 @@ import ZQCollectionViewFlowLayout
 
 class ZQRootViewController: UIViewController {
     
-    fileprivate lazy var datasArr:[[String]] = {
-        let datasArr:[[String]] = [
-            ["1", "2", "3", "4", "5"],
-            ["1", "2", "3", "4", "5", "6", "7", "8"],
-            ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    fileprivate lazy var datasArr:[String] = {
+        let datasArr:[String] = [
+            "ZQCollectionViewFlowDirectionLayout",
+            "ZQCollectionViewFlowZoomLayout",
         ]
         return datasArr
+    }()
+    
+    fileprivate lazy var tableView:UITableView = {
+        let tableView:UITableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
+        tableView.dataSource = self
+        tableView.delegate = self
+        return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let horizontalLayout = getLayout(layoutDirection: .horizontal)
-        let width:CGFloat = 200
-        let horizontalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: 44, width: width, height: width), layout: horizontalLayout)
-        view.addSubview(horizontalCollectionView)
-        
-        let horizontalLabel = getLabel(frame: CGRect(x: horizontalCollectionView.frame.origin.x, y: horizontalCollectionView.frame.maxY + 10, width: width, height: 30), title: "horizontalLayout")
-        view.addSubview(horizontalLabel)
-        
-        let verticalLayout = getLayout(layoutDirection: .vertical)
-        let verticalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: horizontalCollectionView.frame.maxY + 50, width: width, height: width), layout: verticalLayout)
-        view.addSubview(verticalCollectionView)
-        let verticalLabel = getLabel(frame: CGRect(x: verticalCollectionView.frame.origin.x, y: verticalCollectionView.frame.maxY + 10, width: width, height: 30), title: "verticalLayout")
-        view.addSubview(verticalLabel)
+        view.addSubview(tableView)
     }
 }
 
-extension ZQRootViewController {
-    fileprivate func getLayout(layoutDirection:ZQCollectionViewFlowLayoutDirection) -> ZQCollectionViewFlowLayout {
-        let layout = ZQCollectionViewFlowLayout()
-        layout.rowNum = 3
-        layout.colNum = 3
-        layout.contentInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        layout.layoutDirection = layoutDirection
-        layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 50, height: 50)
-        return layout
+extension ZQRootViewController : UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return datasArr.count
     }
     
-    fileprivate func getCollectionView(frame:CGRect, layout:ZQCollectionViewFlowLayout) -> UICollectionView {
-        let collectionView:UICollectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor.blue
-        collectionView.register(ZQCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(ZQCollectionViewCell.self))
-        collectionView.dataSource = self
-        collectionView.isPagingEnabled = true
-        return collectionView
-    }
-    
-    fileprivate func getLabel(frame:CGRect, title:String) -> UILabel {
-        let label = UILabel(frame: frame)
-        label.text = title
-        label.textAlignment = .center
-        label.textColor = UIColor.red
-        return label
-    }
-}
-
-extension ZQRootViewController : UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return datasArr[section].count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell:ZQCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(ZQCollectionViewCell.self), for: indexPath) as! ZQCollectionViewCell
-        cell.title = datasArr[indexPath.section][indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(UITableViewCell.self))!
+        cell.textLabel?.text = datasArr[indexPath.row]
         return cell
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return datasArr.count
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var vc:UIViewController?
+        switch indexPath.row {
+        case 0:
+            vc = ZQCollectionViewFlowDirectionLayoutController()
+            
+        case 1:
+            vc = ZQCollectionViewFlowZoomLayoutController()
+            
+        default:
+            break
+        }
+        
+        vc?.title = datasArr[indexPath.row]
+        if vc != nil {
+            navigationController?.pushViewController(vc!, animated: true)
+        }
     }
 }
 

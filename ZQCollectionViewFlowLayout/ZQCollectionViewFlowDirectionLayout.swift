@@ -1,6 +1,6 @@
 //
-//  ZQCollectionViewFlowLayout.swift
-//  ZQCollectionViewFlowLayout
+//  ZQCollectionViewFlowDirectionLayout.swift
+//  ZQCollectionViewFlowDirectionLayout
 //
 //  Created by Darren on 2019/3/27.
 //  Copyright © 2019 Darren. All rights reserved.
@@ -8,14 +8,14 @@
 
 import UIKit
 
-// MARK: 布局方向
+// MARK: ZQCollectionViewFlowLayoutDirection 布局方向
 public enum ZQCollectionViewFlowLayoutDirection: Int {
     case horizontal    = 0     ///< 水平方向, 即item从左向右排列
     case vertical      = 1     ///< 垂直方向, 即item从上到下排列
 }
 
-// MARK: ZQCollectionViewFlowLayout
-public class ZQCollectionViewFlowLayout: UICollectionViewFlowLayout {
+// MARK: ZQCollectionViewFlowDirectionLayout 方向布局
+public class ZQCollectionViewFlowDirectionLayout: UICollectionViewFlowLayout {
     
     /// 行数, 默认 0
     public var rowNum:Int = 0

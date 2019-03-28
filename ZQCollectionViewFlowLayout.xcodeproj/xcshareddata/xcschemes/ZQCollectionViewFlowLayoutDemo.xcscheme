@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9502155A224B242900B58895"
-               BuildableName = "ZQCollectionViewFlowLayout.app"
-               BlueprintName = "ZQCollectionViewFlowLayout"
+               BuildableName = "ZQCollectionViewFlowLayoutDemo.app"
+               BlueprintName = "ZQCollectionViewFlowLayoutDemo"
                ReferencedContainer = "container:ZQCollectionViewFlowLayout.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9502155A224B242900B58895"
-            BuildableName = "ZQCollectionViewFlowLayout.app"
-            BlueprintName = "ZQCollectionViewFlowLayout"
+            BuildableName = "ZQCollectionViewFlowLayoutDemo.app"
+            BlueprintName = "ZQCollectionViewFlowLayoutDemo"
             ReferencedContainer = "container:ZQCollectionViewFlowLayout.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9502155A224B242900B58895"
-            BuildableName = "ZQCollectionViewFlowLayout.app"
-            BlueprintName = "ZQCollectionViewFlowLayout"
+            BuildableName = "ZQCollectionViewFlowLayoutDemo.app"
+            BlueprintName = "ZQCollectionViewFlowLayoutDemo"
             ReferencedContainer = "container:ZQCollectionViewFlowLayout.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9502155A224B242900B58895"
-            BuildableName = "ZQCollectionViewFlowLayout.app"
-            BlueprintName = "ZQCollectionViewFlowLayout"
+            BuildableName = "ZQCollectionViewFlowLayoutDemo.app"
+            BlueprintName = "ZQCollectionViewFlowLayoutDemo"
             ReferencedContainer = "container:ZQCollectionViewFlowLayout.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
