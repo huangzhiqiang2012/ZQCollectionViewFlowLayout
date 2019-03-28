@@ -1,5 +1,5 @@
 //
-//  ZQCollectionViewFlowDirectionLayout.swift
+//  ZQCollectionViewDirectionFlowLayout.swift
 //  ZQCollectionViewFlowDirectionLayout
 //
 //  Created by Darren on 2019/3/27.
@@ -14,8 +14,8 @@ public enum ZQCollectionViewFlowLayoutDirection: Int {
     case vertical      = 1     ///< 垂直方向, 即item从上到下排列
 }
 
-// MARK: ZQCollectionViewFlowDirectionLayout 方向布局
-public class ZQCollectionViewFlowDirectionLayout: UICollectionViewFlowLayout {
+// MARK: ZQCollectionViewDirectionFlowLayout 方向布局
+public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
     
     /// 行数, 默认 0
     public var rowNum:Int = 0
@@ -47,8 +47,7 @@ public class ZQCollectionViewFlowDirectionLayout: UICollectionViewFlowLayout {
         for section in 0..<sectionNum {
             let itemNum = collectionView.numberOfItems(inSection: section)
             for item in 0..<itemNum {
-                let layoutAttributes = layoutAttributesForItem(at: IndexPath(item: item, section: section))
-                if let layout = layoutAttributes {
+                if let layout = layoutAttributesForItem(at: IndexPath(item: item, section: section)) {
                     layoutAttributesArr.append(layout)
                 }
             }
@@ -108,18 +107,48 @@ public class ZQCollectionViewFlowDirectionLayout: UICollectionViewFlowLayout {
         
         switch layoutDirection {
         case .horizontal:
-            x = CGFloat(section) * width + CGFloat(row % rowNum) * itemWidth + left
-            x += (spaceHor * CGFloat(row % rowNum))
-            
-            y = CGFloat(row / rowNum) * itemHeight + top
-            y += (spaceVer * CGFloat(row / rowNum))
+            switch scrollDirection {
+                
+            /// 横向布局,横向滚动
+            case .horizontal:
+                x = CGFloat(section) * width + CGFloat(row % rowNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row % rowNum))
+                
+                y = CGFloat(row / rowNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row / rowNum))
+                
+            /// 横向布局, 纵向滚动
+            case .vertical:
+                x = CGFloat(row % rowNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row % rowNum))
+                
+                y = CGFloat(section) * height + CGFloat(row / rowNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row / rowNum))
+                
+            default:break
+            }
             
         case .vertical:
-            x = CGFloat(section) * width + CGFloat(row / colNum) * itemWidth + left
-            x += (spaceHor * CGFloat(row / colNum))
-            
-            y = CGFloat(row % colNum) * itemHeight + top
-            y += (spaceVer * CGFloat(row % colNum))
+            switch scrollDirection {
+                
+            /// 纵向布局,横向滚动
+            case .horizontal:
+                x = CGFloat(section) * width + CGFloat(row / colNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row / colNum))
+                
+                y = CGFloat(row % colNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row % colNum))
+                
+            /// 纵向布局,纵向滚动
+            case .vertical:
+                x = CGFloat(row / colNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row / colNum))
+                
+                y = CGFloat(section) * height + CGFloat(row % colNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row % colNum))
+            default:break
+            }
+
         }
         layoutAttribute?.frame = CGRect(x: x, y: y, width: itemWidth, height: itemHeight)
         return layoutAttribute
@@ -129,7 +158,17 @@ public class ZQCollectionViewFlowDirectionLayout: UICollectionViewFlowLayout {
         guard let collectionView = collectionView else {
             return CGSize.zero
         }
-        return CGSize(width: collectionView.bounds.size.width * CGFloat(collectionView.numberOfSections), height: collectionView.bounds.size.height)
+        
+        switch scrollDirection {
+        case .horizontal:
+            return CGSize(width: collectionView.bounds.size.width * CGFloat(collectionView.numberOfSections), height: collectionView.bounds.size.height)
+            
+        case .vertical:
+            return CGSize(width: collectionView.bounds.size.width, height: collectionView.bounds.size.height * CGFloat(collectionView.numberOfSections))
+            
+        default:
+            return CGSize.zero
+        }
     }
     
     public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

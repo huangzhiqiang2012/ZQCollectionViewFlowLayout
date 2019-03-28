@@ -1,5 +1,5 @@
 //
-//  ZQCollectionViewFlowDirectionLayoutController.swift
+//  ZQCollectionViewDirectionFlowLayoutController.swift
 //  ZQCollectionViewFlowLayoutDemo
 //
 //  Created by Darren on 2019/3/27.
@@ -9,7 +9,7 @@
 import UIKit
 import ZQCollectionViewFlowLayout
 
-class ZQCollectionViewFlowDirectionLayoutController: UIViewController {
+class ZQCollectionViewDirectionFlowLayoutController: UIViewController {
     
     fileprivate lazy var datasArr:[[String]] = {
         let datasArr:[[String]] = [
@@ -24,6 +24,7 @@ class ZQCollectionViewFlowDirectionLayoutController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         let horizontalLayout = getLayout(layoutDirection: .horizontal)
+        horizontalLayout.scrollDirection = .vertical
         let width:CGFloat = 200
         let horizontalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: UIApplication.shared.statusBarFrame.size.height + (navigationController?.navigationBar.frame.size.height)! + 20, width: width, height: width), layout: horizontalLayout)
         view.addSubview(horizontalCollectionView)
@@ -32,6 +33,7 @@ class ZQCollectionViewFlowDirectionLayoutController: UIViewController {
         view.addSubview(horizontalLabel)
         
         let verticalLayout = getLayout(layoutDirection: .vertical)
+        verticalLayout.scrollDirection = .vertical
         let verticalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: horizontalCollectionView.frame.maxY + 50, width: width, height: width), layout: verticalLayout)
         view.addSubview(verticalCollectionView)
         let verticalLabel = getLabel(frame: CGRect(x: verticalCollectionView.frame.origin.x, y: verticalCollectionView.frame.maxY + 10, width: width, height: 30), title: "verticalLayout")
@@ -39,19 +41,18 @@ class ZQCollectionViewFlowDirectionLayoutController: UIViewController {
     }
 }
 
-extension ZQCollectionViewFlowDirectionLayoutController {
-    fileprivate func getLayout(layoutDirection:ZQCollectionViewFlowLayoutDirection) -> ZQCollectionViewFlowDirectionLayout {
-        let layout = ZQCollectionViewFlowDirectionLayout()
+extension ZQCollectionViewDirectionFlowLayoutController {
+    fileprivate func getLayout(layoutDirection:ZQCollectionViewFlowLayoutDirection) -> ZQCollectionViewDirectionFlowLayout {
+        let layout = ZQCollectionViewDirectionFlowLayout()
         layout.rowNum = 3
         layout.colNum = 3
         layout.contentInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.layoutDirection = layoutDirection
-        layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 50, height: 50)
         return layout
     }
     
-    fileprivate func getCollectionView(frame:CGRect, layout:ZQCollectionViewFlowDirectionLayout) -> UICollectionView {
+    fileprivate func getCollectionView(frame:CGRect, layout:ZQCollectionViewDirectionFlowLayout) -> UICollectionView {
         let collectionView:UICollectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.blue
         collectionView.register(ZQCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(ZQCollectionViewCell.self))
@@ -69,7 +70,7 @@ extension ZQCollectionViewFlowDirectionLayoutController {
     }
 }
 
-extension ZQCollectionViewFlowDirectionLayoutController : UICollectionViewDataSource {
+extension ZQCollectionViewDirectionFlowLayoutController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datasArr[section].count
     }

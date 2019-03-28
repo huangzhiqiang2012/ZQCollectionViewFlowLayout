@@ -13,8 +13,9 @@ class ZQRootViewController: UIViewController {
     
     fileprivate lazy var datasArr:[String] = {
         let datasArr:[String] = [
-            "ZQCollectionViewFlowDirectionLayout",
-            "ZQCollectionViewFlowZoomLayout",
+            "ZQCollectionViewDirectionFlowLayout",
+            "ZQCollectionViewZoomFlowLayout",
+            "ZQCollectionViewWaterFallsFlowLayout",
         ]
         return datasArr
     }()
@@ -48,10 +49,13 @@ extension ZQRootViewController : UITableViewDataSource, UITableViewDelegate {
         var vc:UIViewController?
         switch indexPath.row {
         case 0:
-            vc = ZQCollectionViewFlowDirectionLayoutController()
+            vc = ZQCollectionViewDirectionFlowLayoutController()
             
         case 1:
-            vc = ZQCollectionViewFlowZoomLayoutController()
+            vc = ZQCollectionViewZoomFlowLayoutController()
+            
+        case 2:
+            vc = ZQCollectionViewWaterFallsFlowLayoutController()
             
         default:
             break

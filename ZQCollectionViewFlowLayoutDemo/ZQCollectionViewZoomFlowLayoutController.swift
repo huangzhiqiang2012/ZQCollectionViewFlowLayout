@@ -1,5 +1,5 @@
 //
-//  ZQCollectionViewFlowZoomLayoutController.swift
+//  ZQCollectionViewZoomFlowLayoutController.swift
 //  ZQCollectionViewFlowLayoutDemo
 //
 //  Created by Darren on 2019/3/27.
@@ -9,7 +9,7 @@
 import UIKit
 import ZQCollectionViewFlowLayout
 
-class ZQCollectionViewFlowZoomLayoutController: UIViewController {
+class ZQCollectionViewZoomFlowLayoutController: UIViewController {
 
     fileprivate lazy var datasArr:[String] = {
         let datasArr:[String] = [
@@ -30,30 +30,28 @@ class ZQCollectionViewFlowZoomLayoutController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        let horizontalLayout = getLayout(layoutDirection: .horizontal)
-        horizontalLayout.scrollDirection = .horizontal
+        let horizontalLayout = getLayout(scrollDirection:.horizontal)
         let x:CGFloat = 25
         let horizontalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: x, y: UIApplication.shared.statusBarFrame.size.height + (navigationController?.navigationBar.frame.size.height)! + 20, width: view.bounds.size.width - 2 * x, height: 180), layout: horizontalLayout)
         view.addSubview(horizontalCollectionView)
         
         let width:CGFloat = 150
-        let verticalLayout = getLayout(layoutDirection: .vertical)
-        verticalLayout.scrollDirection = .vertical
+        let verticalLayout = getLayout(scrollDirection: .vertical)
         let verticalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: horizontalCollectionView.frame.maxY + 20, width: width, height: 280), layout: verticalLayout)
         view.addSubview(verticalCollectionView)
     }
 }
 
-extension ZQCollectionViewFlowZoomLayoutController {
-    fileprivate func getLayout(layoutDirection:ZQCollectionViewFlowLayoutDirection) -> ZQCollectionViewFlowZoomLayout {
-        let layout = ZQCollectionViewFlowZoomLayout()
+extension ZQCollectionViewZoomFlowLayoutController {
+    fileprivate func getLayout(scrollDirection:UICollectionView.ScrollDirection) -> ZQCollectionViewZoomFlowLayout {
+        let layout = ZQCollectionViewZoomFlowLayout()
         layout.maxScale = 1.2
-        layout.layoutDirection = layoutDirection
+        layout.scrollDirection = scrollDirection
         layout.itemSize = CGSize(width: 100, height: 100)
         return layout
     }
     
-    fileprivate func getCollectionView(frame:CGRect, layout:ZQCollectionViewFlowZoomLayout) -> UICollectionView {
+    fileprivate func getCollectionView(frame:CGRect, layout:ZQCollectionViewZoomFlowLayout) -> UICollectionView {
         let collectionView:UICollectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor.blue
         collectionView.register(ZQCollectionViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(ZQCollectionViewCell.self))
@@ -62,7 +60,7 @@ extension ZQCollectionViewFlowZoomLayoutController {
     }
 }
 
-extension ZQCollectionViewFlowZoomLayoutController : UICollectionViewDataSource {
+extension ZQCollectionViewZoomFlowLayoutController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datasArr.count
     }

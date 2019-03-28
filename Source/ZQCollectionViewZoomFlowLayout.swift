@@ -1,5 +1,5 @@
 //
-//  ZQCollectionViewFlowZoomLayout.swift
+//  ZQCollectionViewZoomFlowLayout.swift
 //  ZQCollectionViewFlowLayout
 //
 //  Created by Darren on 2019/3/27.
@@ -8,14 +8,11 @@
 
 import UIKit
 
-// MARK: ZQCollectionViewFlowZoomLayout 缩放布局
-public class ZQCollectionViewFlowZoomLayout: UICollectionViewFlowLayout {
+// MARK: ZQCollectionViewZoomFlowLayout 缩放布局
+public class ZQCollectionViewZoomFlowLayout: UICollectionViewFlowLayout {
     
     /// 最大比例, 默认 1.2
     public var maxScale:CGFloat = 1.2
-    
-    /// 布局方向, 默认 .horizontal
-    public var layoutDirection:ZQCollectionViewFlowLayoutDirection = .horizontal
     
     // MARK: override
     public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -23,7 +20,7 @@ public class ZQCollectionViewFlowZoomLayout: UICollectionViewFlowLayout {
             return super.layoutAttributesForElements(in: rect)
         }
 
-        switch layoutDirection {
+        switch scrollDirection {
         case .horizontal:
             
             /// 计算出collectionView的中心的位置
@@ -65,6 +62,8 @@ public class ZQCollectionViewFlowZoomLayout: UICollectionViewFlowLayout {
                 /// 设置cell滚动时候缩放的比例
                 attributes.transform = CGAffineTransform(scaleX: scale, y: scale)
             }
+            
+        default:break
         }
         return attrsArr
     }
@@ -90,7 +89,7 @@ public class ZQCollectionViewFlowZoomLayout: UICollectionViewFlowLayout {
         /// 最终偏移量
         var targetPoint = super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
         
-        switch layoutDirection {
+        switch scrollDirection {
         case .horizontal:
             
             /// 计算出最终显示的矩形框
@@ -148,6 +147,8 @@ public class ZQCollectionViewFlowZoomLayout: UICollectionViewFlowLayout {
             if targetPoint.y < 0 {
                 targetPoint.y = 0
             }
+            
+        default:break
         }
         return targetPoint
     }
