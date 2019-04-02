@@ -12,54 +12,18 @@ import ZQCollectionViewFlowLayout
 class ZQCollectionViewWaterFallsFlowLayoutController: UIViewController {
 
     fileprivate lazy var datasArr:[String] = {
-        let datasArr:[String] = [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-        ]
+        var datasArr:[String] = [String]()
+        for i:Int in 0..<50 {
+            datasArr.append(i.description)
+        }
         return datasArr
     }()
     
     fileprivate lazy var itemHeightsArr:[CGFloat] = {
-        let itemHeightsArr:[CGFloat] = [
-            100,
-            30,
-            200,
-            50,
-            20,
-            120,
-            80,
-            90,
-            130,
-            85,
-            100,
-            30,
-            200,
-            50,
-            20,
-            120,
-            80,
-            90,
-            130,
-            85
-        ]
+        var itemHeightsArr:[CGFloat] = [CGFloat]()
+        for _:Int in 0..<50 {
+            itemHeightsArr.append(CGFloat(arc4random() % (120 - 10 + 1)))
+        }
         return itemHeightsArr
     }()
     
@@ -90,7 +54,7 @@ extension ZQCollectionViewWaterFallsFlowLayoutController {
         layout.colNum = 3
         layout.colMargin = 5
         layout.rowMargin = 5
-        layout.contentInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         layout.scrollDirection = scrollDirection
         layout.itemSize = CGSize(width: 60, height: 60)
         return layout

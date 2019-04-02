@@ -14,58 +14,71 @@ public class ZQCollectionViewZoomFlowLayout: UICollectionViewFlowLayout {
     /// 最大比例, 默认 1.2
     public var maxScale:CGFloat = 1.2
     
+    /// 所有cell布局
+    fileprivate lazy var layoutAttributesArr:[UICollectionViewLayoutAttributes] = {
+        let layoutAttributesArr:[UICollectionViewLayoutAttributes] = [UICollectionViewLayoutAttributes]()
+        return layoutAttributesArr
+    }()
+    
     // MARK: override
-    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let collectionView = collectionView, let attrsArr = super.layoutAttributesForElements(in: rect) else {
-            return super.layoutAttributesForElements(in: rect)
+    public override func prepare() {
+        super.prepare()
+        guard let collectionView = collectionView else {
+            return
         }
-
+        layoutAttributesArr.removeAll()
+        let sectionNum = collectionView.numberOfSections
+        for section in 0..<sectionNum {
+            let itemNum = collectionView.numberOfItems(inSection: section)
+            for item in 0..<itemNum {
+                if let layout = layoutAttributesForItem(at: IndexPath(item: item, section: section)) {
+                    layoutAttributesArr.append(layout)
+                }
+            }
+        }
+    }
+    
+    public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let collectionView = collectionView, let layoutAttribute = super.layoutAttributesForItem(at: indexPath) else {
+            return nil
+        }
+        
         switch scrollDirection {
         case .horizontal:
             
             /// 计算出collectionView的中心的位置
             let centerX = collectionView.contentOffset.x + collectionView.frame.size.width * 0.5
             
-            /**
-             * 1.一个cell对应一个UICollectionViewLayoutAttributes对象
-             * 2.UICollectionViewLayoutAttributes对象决定了cell的frame
-             */
-            for attributes:UICollectionViewLayoutAttributes in attrsArr {
-                
-                /// cell的中心点距离collectionView的中心点的距离，注意ABS()表示绝对值
-                let delta = abs(attributes.center.x - centerX)
-                
-                /// 设置缩放比例
-                let scale = maxScale - delta / collectionView.frame.size.width
-                
-                /// 设置cell滚动时候缩放的比例
-                attributes.transform = CGAffineTransform(scaleX: scale, y: scale)
-            }
+            /// cell的中心点距离collectionView的中心点的距离，注意ABS()表示绝对值
+            let delta = abs(layoutAttribute.center.x - centerX)
+            
+            /// 设置缩放比例
+            let scale = maxScale - delta / collectionView.frame.size.width
+            
+            /// 设置cell滚动时候缩放的比例
+            layoutAttribute.transform = CGAffineTransform(scaleX: scale, y: scale)
             
         case .vertical:
             
             /// 计算出collectionView的中心的位置
             let centerY = collectionView.contentOffset.y + collectionView.frame.size.height * 0.5
             
-            /**
-             * 1.一个cell对应一个UICollectionViewLayoutAttributes对象
-             * 2.UICollectionViewLayoutAttributes对象决定了cell的frame
-             */
-            for attributes:UICollectionViewLayoutAttributes in attrsArr {
-                
-                /// cell的中心点距离collectionView的中心点的距离，注意ABS()表示绝对值
-                let delta = abs(attributes.center.y - centerY)
-                
-                /// 设置缩放比例
-                let scale = maxScale - delta / collectionView.frame.size.height
-                
-                /// 设置cell滚动时候缩放的比例
-                attributes.transform = CGAffineTransform(scaleX: scale, y: scale)
-            }
+            /// cell的中心点距离collectionView的中心点的距离，注意ABS()表示绝对值
+            let delta = abs(layoutAttribute.center.y - centerY)
+            
+            /// 设置缩放比例
+            let scale = maxScale - delta / collectionView.frame.size.height
+            
+            /// 设置cell滚动时候缩放的比例
+            layoutAttribute.transform = CGAffineTransform(scaleX: scale, y: scale)
             
         default:break
         }
-        return attrsArr
+        return layoutAttribute
+    }
+    
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        return layoutAttributesArr
     }
     
     /**

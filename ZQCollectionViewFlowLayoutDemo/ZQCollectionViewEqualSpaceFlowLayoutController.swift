@@ -1,22 +1,22 @@
 //
-//  ZQRootViewController.swift
-//  ZQCollectionViewFlowLayout
+//  ZQCollectionViewEqualSpaceFlowLayoutController.swift
+//  ZQCollectionViewFlowLayoutDemo
 //
-//  Created by Darren on 2019/3/27.
+//  Created by Darren on 2019/3/28.
 //  Copyright © 2019 Darren. All rights reserved.
 //
 
 import UIKit
 import ZQCollectionViewFlowLayout
 
-class ZQRootViewController: UIViewController {
-    
+class ZQCollectionViewEqualSpaceFlowLayoutController: UIViewController {
+
     fileprivate lazy var datasArr:[String] = {
         let datasArr:[String] = [
-            "ZQCollectionViewDirectionFlowLayout",
-            "ZQCollectionViewZoomFlowLayout",
-            "ZQCollectionViewWaterFallsFlowLayout",
-            "ZQCollectionViewEqualSpaceFlowLayout",
+            "horizontalLayoutHorizontalScroll",
+            "horizontalLayoutVerticalScroll",
+            "verticalLayoutHorizontalScroll",
+            "verticalLayoutVerticalScroll",
         ]
         return datasArr
     }()
@@ -28,14 +28,15 @@ class ZQRootViewController: UIViewController {
         tableView.delegate = self
         return tableView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
         view.addSubview(tableView)
     }
 }
 
-extension ZQRootViewController : UITableViewDataSource, UITableViewDelegate {
+extension ZQCollectionViewEqualSpaceFlowLayoutController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return datasArr.count
     }
@@ -47,28 +48,32 @@ extension ZQRootViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var vc:UIViewController?
+        let layout = ZQCollectionViewEqualSpaceFlowLayout()
         switch indexPath.row {
         case 0:
-            vc = ZQCollectionViewDirectionFlowLayoutController()
+            layout.layoutDirection = .horizontal
+            layout.scrollDirection = .horizontal
             
         case 1:
-            vc = ZQCollectionViewZoomFlowLayoutController()
+            layout.layoutDirection = .horizontal
+            layout.scrollDirection = .vertical
             
         case 2:
-            vc = ZQCollectionViewWaterFallsFlowLayoutController()
+            layout.layoutDirection = .vertical
+            layout.scrollDirection = .horizontal
             
         case 3:
-            vc = ZQCollectionViewEqualSpaceFlowLayoutController()
+            layout.layoutDirection = .vertical
+            layout.scrollDirection = .vertical
             
         default:
             break
         }
         
-        vc?.title = datasArr[indexPath.row]
-        if vc != nil {
-            navigationController?.pushViewController(vc!, animated: true)
-        }
+        let vc = ZQCollectionViewEqualSpaceFlowLayoutShowController()
+        vc.layout = layout
+        vc.title = datasArr[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

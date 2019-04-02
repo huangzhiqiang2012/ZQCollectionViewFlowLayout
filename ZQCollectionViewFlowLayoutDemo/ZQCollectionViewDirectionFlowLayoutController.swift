@@ -24,7 +24,7 @@ class ZQCollectionViewDirectionFlowLayoutController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         let horizontalLayout = getLayout(layoutDirection: .horizontal)
-        horizontalLayout.scrollDirection = .vertical
+        horizontalLayout.scrollDirection = .horizontal
         let width:CGFloat = 200
         let horizontalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: UIApplication.shared.statusBarFrame.size.height + (navigationController?.navigationBar.frame.size.height)! + 20, width: width, height: width), layout: horizontalLayout)
         view.addSubview(horizontalCollectionView)
@@ -46,7 +46,7 @@ extension ZQCollectionViewDirectionFlowLayoutController {
         let layout = ZQCollectionViewDirectionFlowLayout()
         layout.rowNum = 3
         layout.colNum = 3
-        layout.contentInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.layoutDirection = layoutDirection
         layout.itemSize = CGSize(width: 50, height: 50)
         return layout

@@ -12,18 +12,10 @@ import ZQCollectionViewFlowLayout
 class ZQCollectionViewZoomFlowLayoutController: UIViewController {
 
     fileprivate lazy var datasArr:[String] = {
-        let datasArr:[String] = [
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"
-        ]
+        var datasArr:[String] = [String]()
+        for i:Int in 0..<50 {
+            datasArr.append(i.description)
+        }
         return datasArr
     }()
     
@@ -37,7 +29,7 @@ class ZQCollectionViewZoomFlowLayoutController: UIViewController {
         
         let width:CGFloat = 150
         let verticalLayout = getLayout(scrollDirection: .vertical)
-        let verticalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: horizontalCollectionView.frame.maxY + 20, width: width, height: 280), layout: verticalLayout)
+        let verticalCollectionView:UICollectionView = getCollectionView(frame: CGRect(x: (view.bounds.size.width - width) * 0.5, y: horizontalCollectionView.frame.maxY + 20, width: width, height: 320), layout: verticalLayout)
         view.addSubview(verticalCollectionView)
     }
 }
@@ -47,6 +39,7 @@ extension ZQCollectionViewZoomFlowLayoutController {
         let layout = ZQCollectionViewZoomFlowLayout()
         layout.maxScale = 1.2
         layout.scrollDirection = scrollDirection
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layout.itemSize = CGSize(width: 100, height: 100)
         return layout
     }

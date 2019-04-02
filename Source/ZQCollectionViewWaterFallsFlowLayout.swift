@@ -28,10 +28,6 @@ public class ZQCollectionViewWaterFallsFlowLayout: UICollectionViewFlowLayout {
     /// 列间距, 默认 0
     public var colMargin:CGFloat = 0
     
-    /// 内容缩进, 默认 .zero
-    /// 注: 如果设置了该属性,则 minimumLineSpacing 和 minimumInteritemSpacing设置无效,因为在布局计算时,会根据 rowNum colNum itemSize contentInsets 自动算出item之间的间隔
-    public var contentInsets:UIEdgeInsets = .zero
-    
     /// 代理
     public weak var delegate:ZQCollectionViewWaterFallsFlowLayoutDelegate?
     
@@ -59,85 +55,16 @@ public class ZQCollectionViewWaterFallsFlowLayout: UICollectionViewFlowLayout {
         
         /// 每一列添加一个top高度
         for _:Int in 0..<colNum {
-            columHeightsArr.append(contentInsets.top)
+            columHeightsArr.append(sectionInset.top)
         }
         
         /// 清除布局
         layoutAttributesArr.removeAll()
         let itemNum = collectionView.numberOfItems(inSection: 0)
-        
-        switch scrollDirection {
-        case .horizontal:
-            
-            for i:Int in 0..<itemNum {
-                
-                if let layout = layoutAttributesForItem(at: IndexPath(item: i, section: 0)) {
-                    
-                    /// 找到最短列的下标
-                    let shortestIndex:NSInteger = indexOfShortestColum()
-                    
-                    /// 计算Y 目标Y = 内边距上间距 + (高 + item间距) * 最短列下标
-                    let detalY:CGFloat = contentInsets.top + CGFloat(shortestIndex) * (itemSize.height + rowMargin)
-                    
-                    /// 找到最短列的高度
-                    let height:CGFloat = columHeightsArr[shortestIndex]
-                    
-                    /// 计算X
-                    let detalX:CGFloat = height + colMargin
-                    
-                    /// 创建indexPath
-                    let indexPath = IndexPath(item: i, section: 0)
-                    
-                    /// 调用代理方法计算高度
-                    let itemWidth:CGFloat = delegate?.heightForItem(indexPath: indexPath) ?? 0
-                    
-                    /// 生成frame
-                    layout.frame = CGRect(x: detalX, y: detalY, width: itemWidth, height: itemSize.height)
-                    
-                    /// 将位置信息添加到数组中
-                    layoutAttributesArr.append(layout)
-                    
-                    /// 更新这一行的高度
-                    columHeightsArr[shortestIndex] = (detalX + itemWidth)
-                }
+        for i:Int in 0..<itemNum {
+            if let layout = layoutAttributesForItem(at: IndexPath(item: i, section: 0)) {
+                layoutAttributesArr.append(layout)
             }
-            
-        case .vertical:
-            
-            for i:Int in 0..<itemNum {
-                
-                if let layout = layoutAttributesForItem(at: IndexPath(item: i, section: 0)) {
-                    
-                    /// 找到最短列的下标
-                    let shortestIndex:NSInteger = indexOfShortestColum()
-                    
-                    /// 计算X 目标X = 内边距左间距 + (宽 + item间距) * 最短列下标
-                    let detalX:CGFloat = contentInsets.left + CGFloat(shortestIndex) * (itemSize.width + colMargin)
-                    
-                    /// 找到最短列的高度
-                    let height:CGFloat = columHeightsArr[shortestIndex]
-                    
-                    /// 计算Y
-                    let detalY:CGFloat = height + rowMargin
-                    
-                    /// 创建indexPath
-                    let indexPath = IndexPath(item: i, section: 0)
-                    
-                    /// 调用代理方法计算高度
-                    let itemHeight:CGFloat = delegate?.heightForItem(indexPath: indexPath) ?? 0
-                    
-                    /// 生成frame
-                    layout.frame = CGRect(x: detalX, y: detalY, width: itemSize.width, height: itemHeight)
-                    
-                    /// 将位置信息添加到数组中
-                    layoutAttributesArr.append(layout)
-                    
-                    /// 更新这一列的高度
-                    columHeightsArr[shortestIndex] = (detalY + itemHeight)
-                }
-            }
-            
-        default:break
         }
     }
     
@@ -148,6 +75,66 @@ public class ZQCollectionViewWaterFallsFlowLayout: UICollectionViewFlowLayout {
      */
     public override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         return true
+    }
+    
+    public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let layoutAttribute = super.layoutAttributesForItem(at: indexPath) else {
+            return nil
+        }
+        switch scrollDirection {
+        case .horizontal:
+            
+            /// 找到最短列的下标
+            let shortestIndex:NSInteger = indexOfShortestColum()
+            
+            /// 计算Y 目标Y = 内边距上间距 + (高 + item间距) * 最短列下标
+            let detalY:CGFloat = sectionInset.top + CGFloat(shortestIndex) * (itemSize.height + rowMargin)
+            
+            /// 找到最短列的高度
+            let height:CGFloat = columHeightsArr[shortestIndex]
+            
+            /// 计算X
+            let detalX:CGFloat = height + colMargin
+            
+            /// 调用代理方法计算高度
+            let itemWidth:CGFloat = delegate?.heightForItem(indexPath: indexPath) ?? 0
+            
+            /// 生成frame
+            layoutAttribute.frame = CGRect(x: detalX, y: detalY, width: itemWidth, height: itemSize.height)
+            
+            /// 更新这一行的高度
+            columHeightsArr[shortestIndex] = (detalX + itemWidth)
+            
+        case .vertical:
+            
+            /// 找到最短列的下标
+            let shortestIndex:NSInteger = indexOfShortestColum()
+            
+            /// 计算X 目标X = 内边距左间距 + (宽 + item间距) * 最短列下标
+            let detalX:CGFloat = sectionInset.left + CGFloat(shortestIndex) * (itemSize.width + colMargin)
+            
+            /// 找到最短列的高度
+            let height:CGFloat = columHeightsArr[shortestIndex]
+            
+            /// 计算Y
+            let detalY:CGFloat = height + rowMargin
+            
+            /// 调用代理方法计算高度
+            let itemHeight:CGFloat = delegate?.heightForItem(indexPath: indexPath) ?? 0
+            
+            /// 生成frame
+            layoutAttribute.frame = CGRect(x: detalX, y: detalY, width: itemSize.width, height: itemHeight)
+            
+            /// 更新这一列的高度
+            columHeightsArr[shortestIndex] = (detalY + itemHeight)
+            
+        default:break
+        }
+        return layoutAttribute
+    }
+    
+    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        return layoutAttributesArr
     }
     
     public override var collectionViewContentSize: CGSize {
@@ -166,18 +153,14 @@ public class ZQCollectionViewWaterFallsFlowLayout: UICollectionViewFlowLayout {
         
         switch scrollDirection {
         case .horizontal:
-            size.width = height + contentInsets.right
+            size.width = height + sectionInset.right
 
         case .vertical:
-            size.height = height + contentInsets.bottom
+            size.height = height + sectionInset.bottom
 
         default:break
         }
         return size
-    }
-    
-    public override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        return layoutAttributesArr
     }
 }
 

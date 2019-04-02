@@ -23,10 +23,6 @@ public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
     /// 列数, 默认 0
     public var colNum:Int = 0
     
-    /// 内容缩进, 默认 .zero
-    /// 注: 如果设置了该属性,则 minimumLineSpacing 和 minimumInteritemSpacing设置无效,因为在布局计算时,会根据 rowNum colNum itemSize contentInsets 自动算出item之间的间隔
-    public var contentInsets:UIEdgeInsets = .zero
-    
     /// 布局方向, 默认 .horizontal
     public var layoutDirection:ZQCollectionViewFlowLayoutDirection = .horizontal
     
@@ -68,14 +64,13 @@ public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
      这个是取值的，要重写，在移动删除的时候系统会调用该方法重新去UICollectionViewLayoutAttributes然后布局
      */
     public override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let collectionView = collectionView else {
+        guard let collectionView = collectionView, let layoutAttribute = super.layoutAttributesForItem(at: indexPath) else {
             return nil
         }
-        let layoutAttribute = super.layoutAttributesForItem(at: indexPath)
         
         /// 数据源超过分区规定的数量,则不显示该数据
         if indexPath.row >= rowNum * colNum {
-            layoutAttribute?.frame = CGRect.zero
+            layoutAttribute.frame = CGRect.zero
             return layoutAttribute
         }
         
@@ -85,10 +80,10 @@ public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
         let itemWidth:CGFloat = itemSize.width
         let itemHeight:CGFloat = itemSize.height
         
-        let top:CGFloat = contentInsets.top
-        let left:CGFloat = contentInsets.left
-        let bottom:CGFloat = contentInsets.bottom
-        let right:CGFloat = contentInsets.right
+        let top:CGFloat = sectionInset.top
+        let left:CGFloat = sectionInset.left
+        let bottom:CGFloat = sectionInset.bottom
+        let right:CGFloat = sectionInset.right
         
         let section:Int = indexPath.section
         let row:Int = indexPath.row
@@ -150,7 +145,7 @@ public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
             }
 
         }
-        layoutAttribute?.frame = CGRect(x: x, y: y, width: itemWidth, height: itemHeight)
+        layoutAttribute.frame = CGRect(x: x, y: y, width: itemWidth, height: itemHeight)
         return layoutAttribute
     }
     
