@@ -113,9 +113,7 @@ public class ZQCollectionViewEqualSpaceFlowLayout: UICollectionViewFlowLayout {
 // MARK: private
 extension ZQCollectionViewEqualSpaceFlowLayout {
     
-    /**
-     * 重置
-     */
+    /// 重置
     fileprivate func reset() {
         layoutAttributesArr.removeAll()
         totalWidth = 0
@@ -125,9 +123,9 @@ extension ZQCollectionViewEqualSpaceFlowLayout {
         layoutAttributesTempArr.removeAll()
     }
     
-    /**
-     * 改变布局,适应 横向布局
-     */
+    /// 改变布局,适应 横向布局
+    ///
+    /// - Parameter currentAttr: 布局信息
     fileprivate func fixLayoutAttributesToAdjustHorizontalLayout(currentAttr:UICollectionViewLayoutAttributes) {
         guard let collectionView = collectionView else {
             return
@@ -212,9 +210,9 @@ extension ZQCollectionViewEqualSpaceFlowLayout {
         }
     }
     
-    /**
-     * 改变布局,适应 纵向布局
-     */
+    /// 改变布局,适应 纵向布局
+    ///
+    /// - Parameter currentAttr: 布局信息
     fileprivate func fixLayoutAttributesToAdjustVerticalLayout(currentAttr:UICollectionViewLayoutAttributes) {
         guard let collectionView = collectionView else {
             return
@@ -300,9 +298,7 @@ extension ZQCollectionViewEqualSpaceFlowLayout {
         }
     }
     
-    /**
-     * 重置cell的frame
-     */
+    /// 重置cell的frame
     fileprivate func resetCellFrame() {
         guard let collectionView = collectionView else {
             return

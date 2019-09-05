@@ -17,6 +17,7 @@ class ZQRootViewController: UIViewController {
             "ZQCollectionViewZoomFlowLayout",
             "ZQCollectionViewWaterFallsFlowLayout",
             "ZQCollectionViewEqualSpaceFlowLayout",
+            "ZQCollectionViewStickySectionHeaderFlowLayout",
         ]
         return datasArr
     }()
@@ -60,6 +61,9 @@ extension ZQRootViewController : UITableViewDataSource, UITableViewDelegate {
             
         case 3:
             vc = ZQCollectionViewEqualSpaceFlowLayoutController()
+            
+        case 4:
+            vc = ZQCollectionViewStickySectionHeaderFlowLayoutController()
             
         default:
             break

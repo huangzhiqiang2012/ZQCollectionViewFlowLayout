@@ -165,9 +165,10 @@ public class ZQCollectionViewWaterFallsFlowLayout: UICollectionViewFlowLayout {
 }
 
 extension ZQCollectionViewWaterFallsFlowLayout {
-    /**
-     当前最短列
-     */
+
+    /// 当前最短列
+    ///
+    /// - Returns: 当前最短列
     fileprivate func indexOfShortestColum() -> NSInteger {
         var index:NSInteger = 0
         var length:CGFloat = CGFloat(MAXFLOAT)
@@ -181,9 +182,9 @@ extension ZQCollectionViewWaterFallsFlowLayout {
         return index
     }
     
-    /**
-     当前最长列
-     */
+    /// 当前最长列
+    ///
+    /// - Returns: 当前最长列
     fileprivate func indexOfHeightestColum() -> NSInteger {
         var index:NSInteger = 0
         var length:CGFloat = 0

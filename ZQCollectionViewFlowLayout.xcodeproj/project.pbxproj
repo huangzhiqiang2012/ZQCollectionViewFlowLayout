@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		649E76E823213BFB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649E76E723213BFB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayout.swift */; };
+		649E76EA232148AB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649E76E9232148AB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayoutController.swift */; };
+		649E76EC23214AB0003D7274 /* ZQCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649E76EB23214AB0003D7274 /* ZQCollectionReusableView.swift */; };
 		9502155F224B242900B58895 /* ZQAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9502155E224B242900B58895 /* ZQAppDelegate.swift */; };
 		95021561224B242900B58895 /* ZQRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95021560224B242900B58895 /* ZQRootViewController.swift */; };
 		95021564224B242900B58895 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95021562224B242900B58895 /* Main.storyboard */; };
@@ -52,6 +55,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		649E76E723213BFB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewStickySectionHeaderFlowLayout.swift; sourceTree = "<group>"; };
+		649E76E9232148AB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionViewStickySectionHeaderFlowLayoutController.swift; sourceTree = "<group>"; };
+		649E76EB23214AB0003D7274 /* ZQCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQCollectionReusableView.swift; sourceTree = "<group>"; };
 		9502155B224B242900B58895 /* ZQCollectionViewFlowLayoutDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZQCollectionViewFlowLayoutDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9502155E224B242900B58895 /* ZQAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQAppDelegate.swift; sourceTree = "<group>"; };
 		95021560224B242900B58895 /* ZQRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZQRootViewController.swift; sourceTree = "<group>"; };
@@ -121,7 +127,9 @@
 				958A4310224C6AFA0076D665 /* ZQCollectionViewWaterFallsFlowLayoutController.swift */,
 				958A4314224CBD160076D665 /* ZQCollectionViewEqualSpaceFlowLayoutController.swift */,
 				95B710FC2253359C00F2EB13 /* ZQCollectionViewEqualSpaceFlowLayoutShowController.swift */,
+				649E76E9232148AB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayoutController.swift */,
 				95021584224B4D5E00B58895 /* ZQCollectionViewCell.swift */,
+				649E76EB23214AB0003D7274 /* ZQCollectionReusableView.swift */,
 				95021562224B242900B58895 /* Main.storyboard */,
 				95021565224B242A00B58895 /* Assets.xcassets */,
 				95021567224B242A00B58895 /* LaunchScreen.storyboard */,
@@ -139,6 +147,7 @@
 				9502158A224B819300B58895 /* ZQCollectionViewZoomFlowLayout.swift */,
 				958A430E224C69CC0076D665 /* ZQCollectionViewWaterFallsFlowLayout.swift */,
 				958A4312224CA6F20076D665 /* ZQCollectionViewEqualSpaceFlowLayout.swift */,
+				649E76E723213BFB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayout.swift */,
 			);
 			name = ZQCollectionViewFlowLayout;
 			path = Source;
@@ -258,9 +267,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				649E76EA232148AB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayoutController.swift in Sources */,
 				95021589224B813200B58895 /* ZQCollectionViewZoomFlowLayoutController.swift in Sources */,
 				95021561224B242900B58895 /* ZQRootViewController.swift in Sources */,
 				9502155F224B242900B58895 /* ZQAppDelegate.swift in Sources */,
+				649E76EC23214AB0003D7274 /* ZQCollectionReusableView.swift in Sources */,
 				95021585224B4D5E00B58895 /* ZQCollectionViewCell.swift in Sources */,
 				95B710FD2253359C00F2EB13 /* ZQCollectionViewEqualSpaceFlowLayoutShowController.swift in Sources */,
 				958A4311224C6AFA0076D665 /* ZQCollectionViewWaterFallsFlowLayoutController.swift in Sources */,
@@ -277,6 +288,7 @@
 				958A4313224CA6F20076D665 /* ZQCollectionViewEqualSpaceFlowLayout.swift in Sources */,
 				9502158B224B819300B58895 /* ZQCollectionViewZoomFlowLayout.swift in Sources */,
 				95021583224B253E00B58895 /* ZQCollectionViewDirectionFlowLayout.swift in Sources */,
+				649E76E823213BFB003D7274 /* ZQCollectionViewStickySectionHeaderFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
