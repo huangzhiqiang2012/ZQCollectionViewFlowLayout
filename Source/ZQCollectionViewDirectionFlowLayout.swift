@@ -88,14 +88,14 @@ public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
         let section:Int = indexPath.section
         let row:Int = indexPath.row
         
-        assert((width - left - right) >= (itemWidth * CGFloat(rowNum)))
-        assert((height - top - bottom) >= (itemHeight * CGFloat(colNum)))
+        assert((width - left - right) >= (itemWidth * CGFloat(colNum)))
+        assert((height - top - bottom) >= (itemHeight * CGFloat(rowNum)))
         
         /// 计算水平距离
-        let spaceHor:CGFloat = (width - CGFloat(rowNum) * itemWidth - left - right) / CGFloat(rowNum - 1)
+        let spaceHor:CGFloat = (width - CGFloat(colNum) * itemWidth - left - right) / CGFloat(colNum - 1)
         
         /// 计算垂直距离
-        let spaceVer:CGFloat = (height - CGFloat(colNum) * itemHeight - top - bottom) / CGFloat(colNum - 1)
+        let spaceVer:CGFloat = (height - CGFloat(rowNum) * itemHeight - top - bottom) / CGFloat(rowNum - 1)
         
         var x:CGFloat = 0
         var y:CGFloat = 0
@@ -103,47 +103,46 @@ public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
         switch layoutDirection {
         case .horizontal:
             switch scrollDirection {
-                
+            
             /// 横向布局,横向滚动
             case .horizontal:
-                x = CGFloat(section) * width + CGFloat(row % rowNum) * itemWidth + left
-                x += (spaceHor * CGFloat(row % rowNum))
+                x = CGFloat(section) * width + CGFloat(row % colNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row % colNum))
                 
-                y = CGFloat(row / rowNum) * itemHeight + top
-                y += (spaceVer * CGFloat(row / rowNum))
+                y = CGFloat(row / colNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row / colNum))
                 
             /// 横向布局, 纵向滚动
             case .vertical:
-                x = CGFloat(row % rowNum) * itemWidth + left
-                x += (spaceHor * CGFloat(row % rowNum))
+                x = CGFloat(row % colNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row % colNum))
                 
-                y = CGFloat(section) * height + CGFloat(row / rowNum) * itemHeight + top
-                y += (spaceVer * CGFloat(row / rowNum))
+                y = CGFloat(section) * height + CGFloat(row / colNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row / colNum))
                 
             default:break
             }
             
         case .vertical:
             switch scrollDirection {
-                
+            
             /// 纵向布局,横向滚动
             case .horizontal:
-                x = CGFloat(section) * width + CGFloat(row / colNum) * itemWidth + left
-                x += (spaceHor * CGFloat(row / colNum))
+                x = CGFloat(section) * width + CGFloat(row / rowNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row / rowNum))
                 
-                y = CGFloat(row % colNum) * itemHeight + top
-                y += (spaceVer * CGFloat(row % colNum))
+                y = CGFloat(row % rowNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row % rowNum))
                 
             /// 纵向布局,纵向滚动
             case .vertical:
-                x = CGFloat(row / colNum) * itemWidth + left
-                x += (spaceHor * CGFloat(row / colNum))
+                x = CGFloat(row / rowNum) * itemWidth + left
+                x += (spaceHor * CGFloat(row / rowNum))
                 
-                y = CGFloat(section) * height + CGFloat(row % colNum) * itemHeight + top
-                y += (spaceVer * CGFloat(row % colNum))
+                y = CGFloat(section) * height + CGFloat(row % rowNum) * itemHeight + top
+                y += (spaceVer * CGFloat(row % rowNum))
             default:break
             }
-
         }
         layoutAttribute.frame = CGRect(x: x, y: y, width: itemWidth, height: itemHeight)
         return layoutAttribute
