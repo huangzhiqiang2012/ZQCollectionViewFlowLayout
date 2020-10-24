@@ -10,9 +10,15 @@ import UIKit
 
 // MARK: 对齐方式
 public enum ZQCollectionViewEqualSpaceAlignType:Int {
-    case left     = 0      ///< 左对齐
-    case center   = 1      ///< 居中对齐
-    case right    = 2      ///< 右对齐
+    
+    /// 左对齐
+    case left     = 0
+    
+    /// 居中对齐
+    case center   = 1
+    
+    /// 右对齐
+    case right    = 2
 }
 
 // MARK: ZQCollectionViewEqualSpaceFlowLayout 等间距对齐布局

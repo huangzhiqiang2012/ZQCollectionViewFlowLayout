@@ -10,8 +10,12 @@ import UIKit
 
 // MARK: ZQCollectionViewFlowLayoutDirection 布局方向
 public enum ZQCollectionViewFlowLayoutDirection: Int {
-    case horizontal    = 0     ///< 水平方向, 即item从左向右排列
-    case vertical      = 1     ///< 垂直方向, 即item从上到下排列
+    
+    /// 水平方向, 即item从左向右排列
+    case horizontal    = 0
+    
+    /// 垂直方向, 即item从上到下排列
+    case vertical      = 1
 }
 
 // MARK: ZQCollectionViewDirectionFlowLayout 方向布局
@@ -92,10 +96,16 @@ public class ZQCollectionViewDirectionFlowLayout: UICollectionViewFlowLayout {
         assert((height - top - bottom) >= (itemHeight * CGFloat(rowNum)))
         
         /// 计算水平距离
-        let spaceHor:CGFloat = (width - CGFloat(colNum) * itemWidth - left - right) / CGFloat(colNum - 1)
+        var spaceHor:CGFloat = 0
+        if colNum > 1 {
+            spaceHor = (width - CGFloat(colNum) * itemWidth - left - right) / CGFloat(colNum - 1)
+        }
         
         /// 计算垂直距离
-        let spaceVer:CGFloat = (height - CGFloat(rowNum) * itemHeight - top - bottom) / CGFloat(rowNum - 1)
+        var spaceVer:CGFloat = 0
+        if rowNum > 1 {
+            spaceVer = (height - CGFloat(rowNum) * itemHeight - top - bottom) / CGFloat(rowNum - 1)
+        }
         
         var x:CGFloat = 0
         var y:CGFloat = 0
